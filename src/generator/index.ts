@@ -44,6 +44,14 @@ export default async (config: Config): Promise<Uint8Array> => {
     await page.setContent(config.source, { waitUntil: "networkidle2" });
   }
 
+  await page.waitForSelector('body.previewer-ready-to-pdf');
+
+  // 删除特定类名的元素
+  await page.evaluate(() => {
+      const elements = document.querySelectorAll('.trayTips');
+      elements.forEach(element => element.remove());
+  });
+
   // https://pptr.dev/api/puppeteer.pdfoptions
   const pdf = await page.pdf({
     timeout: config.timeout,

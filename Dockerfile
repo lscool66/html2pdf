@@ -21,4 +21,4 @@ RUN npm install
 
 COPY dist/ ./dist/
 
-CMD ["npm", "run", "start"]
+ENTRYPOINT ["npm", "run", "start"]
